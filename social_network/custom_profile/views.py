@@ -4,12 +4,12 @@ from custom_profile.models import CustomProfile, FriendInvitation
 def index(request):
     print('Index request!')
     
-    return render(request, 'index.html', { 'profiles' : CustomProfile.objects.all(), 'logged_profile' : getLoggedProfile(request) })
+    return render(request, 'custom_profile/index.html', { 'profiles' : CustomProfile.objects.all(), 'logged_profile' : getLoggedProfile(request) })
 
 def profile(request, profile_id):
     print('Profile request!')
 
-    return render(request, 'profile.html', { 'profile' : CustomProfile.objects.get(id = profile_id), 'logged_profile' : getLoggedProfile(request) })
+    return render(request, 'custom_profile/profile.html', { 'profile' : CustomProfile.objects.get(id = profile_id), 'logged_profile' : getLoggedProfile(request) })
                                            
 def inviteFriend(request, invited_profile_id):
     print('Invite request!')

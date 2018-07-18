@@ -35,6 +35,3 @@ class FriendInvitation(models.Model):
         if invited_invitation:
             invited_invitation.delete()
         
-        
-
-

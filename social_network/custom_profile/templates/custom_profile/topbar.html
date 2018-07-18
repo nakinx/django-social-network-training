@@ -1,11 +1,11 @@
-{% load staticfiles %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static "style/bootstrap/bootstrap.css" %}">    
+    <link rel="stylesheet" href="{% static "style/bootstrap/bootstrap.css" %}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Social Network</title>
 </head>
@@ -17,6 +17,7 @@
                 <a class="p-2 text-dark" href="{% url 'profile' logged_profile.id %}">{{logged_profile.name}}</a>
             </nav>
             <a class="btn btn-outline-primary" href="#">Sign out</a>
+            <a class="btn btn-outline-primary" href="{% url 'signup' %}">Sign up</a>
         </div>              
     </div>
     <div class="container">
