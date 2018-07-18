@@ -1,21 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Profile details of {{profile.name}}</title>
-</head>
-<body>
-    
-    <h3>Profile detail of {{profile.name}}</h3>
+{% extends "topbar.html" %}
+
+{% block body %}
+
+    <h3>Detail of profile {{profile.name}}</h3>
 
     <p>{{profile.id}}</p>
     <p>{{profile.name}}</p>
     <p>{{profile.email}}</p>
     <p>{{profile.birthday_date}}</p>
+    
+    {% if not logged_profile in profile.friends.all and profile.id != logged_profile.id %}
+        <p><a href="{% url 'invite-friend' profile.id %}">Invite as friend!</a></p>
+    {% endif %}
+     
+    <h3>Friends</h3>    
 
-    <a href="{% url 'invite' profile.id %}">Invite as friend</a>
+    {% if profile.friends.count %}
+        {% for profile in profile.friends.all %}
+            <p>{{profile.name}}</p>
+        {% endfor %}
+    {% else %}
+        <p>You don't have friends!</p>
+    {% endif %}
 
-</body>
-</html>
+    {% if profile.id == logged_profile.id %}
+
+        <h3>Received Invitations</h3>
+
+        {% if profile.received_invitations.count %}
+            {% for invitation in profile.received_invitations.all %}
+                <p>{{invitation.inviter.name}} / <a href="{% url 'accept-friend' invitation.id %}">Accept</a></p>
+            {% endfor %}
+        {% else %}
+            <p>No invitation received...</p>
+        {% endif %}
+
+    {% endif %}
+    
+    {% if profile.id == logged_profile.id %}
+   
+        <h3>Sended Invitation</h3>
+
+        {% if profile.invitations.count %}
+            {% for invitation in profile.invitations.all %}
+                <p>{{invitation.invited_friend}}</p>
+            {% endfor %}
+        {% else %}
+            <p>No invitation made...</p>
+        {% endif %}
+
+    {% endif %}    
+
+{% endblock body %}
