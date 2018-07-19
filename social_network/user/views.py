@@ -15,22 +15,30 @@ class UserView(View):
     def post(self, request):
         print("Handling POST request to sign up!")
        
+        # Print how form fields are stored in python variable.
+        print(request.POST)
+
         form = UserForm(request.POST)
 
-        if form.is_valid():
-            
+        # Print how form should be create on template.
+        print(form)
+
+        '''
+        The is_valid() function check if the form follow the rules on form, but
+        if we want to check if the field are filled correctly we should use
+        the function is_bound().
+        '''
+        if form.is_valid():            
+            print('Valid form! Saving data...')
+
             # Save data about sign user credentials on django default user database.
-            new_user = User.objects.create_user(form.data['name'], form.data['email'], form.data['password'])
-
-            print(new_user)
-
+            new_user = User.objects.create_user(form.data['username'], form.data['email'], form.data['password'])
+            
             # Save extension data about the user.
-            new_profile = CustomProfile(name = form.data['name'], email = form.data['email'], birthday = form.data['birthday'], user = new_user).save()
-
-            print(new_profile)
+            new_profile = CustomProfile(name = form.data['name'], email = form.data['email'], birthday = form.data['birthday'], credentials = new_user).save()
 
             return redirect('index')
 
-        print('fudeu')
+        print('Invalid form!')
 
         return render(request, self.template_name, { 'form' : form })

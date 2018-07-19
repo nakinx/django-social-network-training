@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class CustomProfile(models.Model):
     name = models.CharField(max_length=256, null = False)
-    email = models.CharField(max_length=256, null = False)
+    email = models.EmailField(null = False)
     birthday = models.DateField('YYYY-MM-DD', null = False)
     friends = models.ManyToManyField('self')
     credentials = models.OneToOneField(User, related_name = 'profile', on_delete = models.CASCADE)

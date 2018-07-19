@@ -4,33 +4,34 @@
 
     <form method="post" action="{% url 'signup' %}">
         {% csrf_token %}
-        {% if form.erros %}
-
+                
+        {% if form.errors or form.non_field_errors %}
             <div class="alert alert-danger">
+                {{ form.errors }}
                 {{ form.non_field_errors }}
             </div>
         {% endif %}
 
         <div class="form-group">
-            <label for="usernamex">Username</label>
-            <input type="text" class="form-control" id="usernamex" required>        
+            <label for="id_username">Username</label>
+            <input type="text" class="form-control" name="username" id="id_username" required>        
         </div>
         <div class="form-group">
-            <label for="name">Password</label>
-            <input type="password" class="form-control" id="password" required>
+            <label for="id_password">Password</label>
+            <input type="password" class="form-control" name="password" id="id_password" required>
         </div>         
         <div>
             <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" required>
+                <label for="id_name">Name</label>
+                <input type="text" class="form-control" name="name" id="id_name" required>
             </div>
             <div class="form-group">
-                <label for="">Email address</label>
-                <input type="text" id="email" class="form-control" required>
+                <label for="id_email">Email address</label>
+                <input type="text" class="form-control" name="email" id="id_email" required>
             </div>
             <div class="form-group">
-                <label for="">Birthday</label>
-                <input type="date" id="birthday" class="form-control" required>
+                <label for="id_birthday">Birthday</label>
+                <input type="date" class="form-control" name="birthday" id="id_birthday" required>
             </div>
         </div>         
         <button type="submit" class="btn btn-primary">Create an account</button>

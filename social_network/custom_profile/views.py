@@ -28,5 +28,5 @@ def acceptFriend(request, invitation_id):
     return redirect('index')
 
 def getLoggedProfile(request):
-    return CustomProfile.objects.get(id = 4)   
+    return CustomProfile.objects.get(id = 1)   
 

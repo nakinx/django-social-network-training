@@ -1,33 +1,26 @@
 from django import forms
+from django.utils.translation import gettext as _
 from django.contrib.auth.models import User
 
 class UserForm(forms.Form):
+    username = forms.CharField(required=True, max_length=150)    
+    password = forms.CharField(required=True, max_length=128)
+    name = forms.CharField(required=True, min_length=4, max_length=256)
+    email = forms.EmailField(required=True)
+    birthday = forms.DateField(required=True)
 
-    usernamex = forms.CharField(required=True)
+    '''
+    This method is for training purpose and it objetive is to not allow
+    username containing number.
+    '''    
+    def clean_username(self):
+        # Get the field username already treated.
+        username = self.cleaned_data['username']
 
-    
-    def is_valid(self):
-        is_valid_form = True
+        if not username.isalpha():
+            raise forms.ValidationError(_('You should not use number in username.'), code='invalid')
 
-        print(usernamex)
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError(_('Username already in use.'), code='invalid')
 
-        print(self)
-        if not super(UserForm, self).is_valid():
-            print('porra2')            
-            self.addErrorMsg('Please check the inserted values.')
-            is_valid_form = False
-        
-        print(is_valid_form)
-
-        # Check if the username is unique.
-        #if User.objects.filter(username = self.data['username']).exists():
-        #    self.addErrorMsg('Username already in use.')
-        #    is_valid_form = False
-
-        return is_valid_form
-
-    def addErrorMsg(self, msg):
-        self._errors.setdefault(forms.forms.NON_FIELD_ERRORS, forms.utils.ErrorList()).append(msg)
-
-    def __str__(self):
-        return "{} {} {} {} {}".format(self.usernamex, self.password, self.name, self.email, self.birthday)
+        return username
