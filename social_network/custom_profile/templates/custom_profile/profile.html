@@ -7,7 +7,7 @@
     <p>{{profile.id}}</p>
     <p>{{profile.name}}</p>
     <p>{{profile.email}}</p>
-    <p>{{profile.birthday_date}}</p>
+    <p>{{profile.birthday}}</p>
     
     {% if not logged_profile in profile.friends.all and profile.id != logged_profile.id %}
         <p><a href="{% url 'invite-friend' profile.id %}">Invite as friend!</a></p>

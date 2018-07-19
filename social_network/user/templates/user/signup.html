@@ -4,18 +4,35 @@
 
     <form method="post" action="{% url 'signup' %}">
         {% csrf_token %}
+        {% if form.erros %}
+
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
         <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" required>        
-        </div>
-        <div class="form-group">
-            <label for="name">Email</label>
-            <input type="text" class="form-control" id="email" required>
+            <label for="usernamex">Username</label>
+            <input type="text" class="form-control" id="usernamex" required>        
         </div>
         <div class="form-group">
             <label for="name">Password</label>
             <input type="password" class="form-control" id="password" required>
-        </div>                
+        </div>         
+        <div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="">Email address</label>
+                <input type="text" id="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="">Birthday</label>
+                <input type="date" id="birthday" class="form-control" required>
+            </div>
+        </div>         
         <button type="submit" class="btn btn-primary">Create an account</button>
     </form>
 
