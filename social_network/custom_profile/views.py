@@ -1,16 +1,20 @@
 from django.shortcuts import render, redirect
 from custom_profile.models import CustomProfile, FriendInvitation
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def index(request):
     print('Index request!')
     
     return render(request, 'custom_profile/index.html', { 'profiles' : CustomProfile.objects.all(), 'logged_profile' : getLoggedProfile(request) })
 
+@login_required
 def profile(request, profile_id):
     print('Profile request!')
 
     return render(request, 'custom_profile/profile.html', { 'profile' : CustomProfile.objects.get(id = profile_id), 'logged_profile' : getLoggedProfile(request) })
-                                           
+
+@login_required                   
 def inviteFriend(request, invited_profile_id):
     print('Invite request!')
 
@@ -20,6 +24,7 @@ def inviteFriend(request, invited_profile_id):
     
     return redirect('index')
 
+@login_required
 def acceptFriend(request, invitation_id):
     print('Accept Invitation request!')
 
@@ -27,6 +32,7 @@ def acceptFriend(request, invitation_id):
 
     return redirect('index')
 
+@login_required
 def getLoggedProfile(request):
-    return CustomProfile.objects.get(id = 1)   
+    return request.user.profile  
 

@@ -1,0 +1,34 @@
+{% extends "user/topbar.html" %}
+
+{% block body %}
+
+    <form class="form-group" action="{% url 'signin' %}" method="post">
+        {% csrf_token %}
+
+        {% if form.errors or form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.errors }}
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+        
+        <div class="form-group">
+            <label for="id_username">Username</label>
+                <input type="text" name="username" id="id_username">
+            </label>
+        </div>
+        <div class="form-group">
+            <label for="id_password">Password</label>
+                <input type="text" name="password" id="id_password">
+            </label>
+        </div>
+        
+        <input type="hidden" name="next" value="{{ next }}" />
+
+        <button class="btn btn-primary" type="submit">Sign in</button>
+
+        <a class="btn btn-primary" href="{% url 'signup' %}">Sign up</a>
+        
+    </form>
+
+{% endblock body %}

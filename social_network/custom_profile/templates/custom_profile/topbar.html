@@ -17,11 +17,8 @@
                 <a class="p-2 text-dark" href="{% url 'profile' logged_profile.id %}">{{logged_profile.name}}</a>
             </nav>
             <div>
-                <a class="btn btn-outline-primary" href="#">Sign out</a>
-            </div>
-            <div>
-                <a class="btn btn-outline-primary" href="{% url 'signup' %}">Sign up</a>
-            </div>
+                <a class="btn btn-outline-primary" href="{% url 'signout' %}">Sign out</a>
+            </div>            
         </div>              
     </div>
     <div class="container">
